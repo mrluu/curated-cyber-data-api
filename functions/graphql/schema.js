@@ -6,9 +6,13 @@ const schema = `
     id: String!
     description: String
   }
+  type AffectedProduct {
+    cpe: String!
+  }
   type Vulnerability {
     id: String!
     description: String
+    affectedProducts: [AffectedProduct]
   }
   type Query {
     vulnerabilities: [Vulnerability]

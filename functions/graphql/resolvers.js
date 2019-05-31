@@ -23,9 +23,23 @@ module.exports = {
         console.log("RESULTS size: " + results.size);
         if (results.size > 0) {
           return results.docs.map(doc => {
-              let target = Object.assign({id: doc.id}, {description: doc.data().description});
-              console.log(target);
-              return target;
+            let target = Object.assign({id: doc.id}, {description: doc.data().description});
+            console.log(target);
+
+            let platformz = doc.ref.collection("affected_product").get().then((platforms) => {
+              if (platforms.size > 0) {
+                return platforms.docs.map(platform => {
+                  let p = Object.assign({}, {cpe: platform.id});
+                  console.log("CPE: " + p.cpe);
+                  return p;
+                });
+              }
+              else {
+                return [];
+              }
+            });
+
+            return Object.assign(target, {affectedProducts: platformz});
           });
         }
         else {
