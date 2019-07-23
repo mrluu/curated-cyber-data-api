@@ -12,7 +12,7 @@ const schema = `
   type Vulnerability {
     id: String!
     description: String
-    affectedProducts: [AffectedProduct]
+    affectedProducts: [String]
   }
   type Query {
     vulnerabilities: [Vulnerability]
